@@ -254,6 +254,15 @@ TRENDS_NAME_ALIASES = {
     "Uttaranchal": "UK",
 }
 
+# Fallbacks for small states/UTs that often lack Google Trends data.
+# Maps the missing state's code to the code of a nearby state with strong data.
+STATE_FALLBACKS = {
+    "LA": "JK",  # Ladakh -> Jammu & Kashmir
+    "AN": "TN",  # Andaman & Nicobar -> Tamil Nadu
+    "LD": "KL",  # Lakshadweep -> Kerala
+    "DD": "GJ",  # Dadra & Nagar Haveli / Daman & Diu -> Gujarat (if ever missing)
+}
+
 CONTRACTIONS = {"cant": "can't", "wont": "won't", "dont": "don't", "im": "I'm", "whats": "what's"}
 
 

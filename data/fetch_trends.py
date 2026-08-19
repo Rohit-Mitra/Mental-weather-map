@@ -349,6 +349,8 @@ def build_payload(args) -> dict:
     # Raw series per state, before the shared rescale.
     raw: dict[str, list[float]] = {}
     modelled_fallbacks = 0
+    from schema import STATE_FALLBACKS
+    
     for code, _name, _iso, *_rest in STATES:
         measured = per_state_history.get(code)
         if measured and len(measured) == len(weeks):
@@ -356,8 +358,12 @@ def build_payload(args) -> dict:
             continue
         if args.history == "per-state":
             modelled_fallbacks += 1
-        level_12m = composite(regional_12m.get(code, {})) or national_level
-        level_now = composite(regional_now.get(code, {})) or level_12m
+            
+        fallback_code = STATE_FALLBACKS.get(code, code) if code not in regional_12m else code
+        fallback_now_code = STATE_FALLBACKS.get(code, code) if code not in regional_now else code
+        
+        level_12m = composite(regional_12m.get(fallback_code, {})) or national_level
+        level_now = composite(regional_now.get(fallback_now_code, {})) or level_12m
         raw[code] = model_state_history(national_raw, level_12m, level_now)
 
     rescale = make_rescaler([v for series in raw.values() for v in series])
@@ -365,7 +371,11 @@ def build_payload(args) -> dict:
     states_out = []
     for code, name, iso, *_rest in STATES:
         series = [rescale(v) for v in raw[code]]
-        now_scores = regional_now.get(code) or regional_12m.get(code) or {}
+        
+        fallback_code = STATE_FALLBACKS.get(code, code) if code not in regional_12m else code
+        fallback_now_code = STATE_FALLBACKS.get(code, code) if code not in regional_now else code
+        
+        now_scores = regional_now.get(fallback_now_code) or regional_12m.get(fallback_code) or {}
         # Per-term scores are reported on the same 0-100 footing as the index.
         term_scores = {t: clamp_int(now_scores.get(t, series[-1])) for t in TERMS}
         states_out.append(summarize_state(
