@@ -1,0 +1,34 @@
+{
+  "name": "mental-health-weather-map",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A weather-map visualization of aggregated, anonymized public search-trend data as a proxy signal for regional stress and anxiety search interest across India.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "build:geo": "node scripts/build_geo.mjs",
+    "data:mock": "python3 data/generate_mock_data.py",
+    "data:real": "python3 data/fetch_trends.py",
+    "geo:source": "node scripts/prepare_source_geo.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/anek-devanagari": "^5.3.0",
+    "@fontsource-variable/anek-latin": "^5.3.0",
+    "@fontsource-variable/ibm-plex-sans": "^5.3.0",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@mapbox/geojson-rewind": "^0.5.2",
+    "@vitejs/plugin-react": "^4.3.4",
+    "d3-geo": "^3.1.1",
+    "topojson-client": "^3.1.0",
+    "topojson-server": "^3.0.1",
+    "topojson-simplify": "^3.0.3",
+    "us-atlas": "^3.0.1",
+    "vite": "^5.4.11"
+  }
+}

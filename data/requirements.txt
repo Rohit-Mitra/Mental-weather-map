@@ -1,0 +1,4 @@
+# Only needed for the OPTIONAL real-data fetch (data/fetch_trends.py).
+# The app ships with a working synthetic dataset and needs none of this.
+pytrends>=4.9.2
+pandas>=2.0
