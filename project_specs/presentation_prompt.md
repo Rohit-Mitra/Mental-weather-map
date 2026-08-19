@@ -36,6 +36,7 @@ I built this by iteratively prompting an AI agent. Here is the exact progression
 - Start with the "Why" (Mental health is hard to visualize, weather is universally understood).
 - Show the final product (Screenshots of the app).
 - Emphasize the "Vibe Coding" journey (How I steered the AI through architectural decisions, API roadblocks, and edge-case debugging).
+- **CRITICAL:** Include a dedicated slide showing the `agent_task_list.md` (a markdown checklist we used to track our 5-phase execution plan) to visually prove how an AI agent breaks down a vague prompt into an iterative, actionable engineering checklist.
 - End with key takeaways on how AI is changing software development.
 
 Please generate the slide deck outline!
